@@ -326,35 +326,73 @@
       justify-content: center;
     }
 
-    .lake-ring {
+    .orbit-track {
       position: absolute;
       border-radius: 50%;
-      border: 1px solid rgba(76,168,201,0.2);
+      border: 1px solid rgba(76,168,201,0.15);
     }
-    .lake-ring:nth-child(1) { width: 80%; height: 60%; top: 20%; }
-    .lake-ring:nth-child(2) { width: 55%; height: 45%; top: 27%; border-color: rgba(76,168,201,0.3); }
-    .lake-ring:nth-child(3) { width: 30%; height: 28%; top: 36%; border-color: rgba(76,168,201,0.5); }
+    .orbit-track:nth-child(1) { width: 85%; height: 65%; }
+    .orbit-track:nth-child(2) { width: 60%; height: 48%; border-color: rgba(76,168,201,0.25); }
+    .orbit-track:nth-child(3) { width: 32%; height: 30%; border-color: rgba(76,168,201,0.4); }
 
-    .lake-label {
+    .orbiter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      margin: -4px;
+      border-radius: 50%;
+      background: rgba(76,168,201,0.7);
+      box-shadow: 0 0 6px rgba(76,168,201,0.5);
+    }
+    .orbiter.ithaca { width: 10px; height: 10px; margin: -5px; background: rgba(100,220,180,0.9); box-shadow: 0 0 10px rgba(100,220,180,0.7); animation: orbit 4s linear infinite; }
+    .orbiter.seattle { animation: orbit 8s linear infinite; }
+    .orbiter.question { animation: orbit 14s linear infinite; }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg) translateX(var(--orbit-r, 30%)) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(var(--orbit-r, 30%)) rotate(-360deg); }
+    }
+
+    .orbiter-label {
       position: absolute;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(76,168,201,0.6);
+      color: rgba(76,168,201,0.8);
+      white-space: nowrap;
     }
-    .lake-label:nth-child(4) { top: 30%; left: 15%; }
-    .lake-label:nth-child(5) { top: 55%; right: 18%; }
-    .lake-label:nth-child(6) { bottom: 28%; left: 30%; }
+    .orbiter-label.ithaca  { animation: orbit 4s linear infinite; --orbit-r: 30%; }
+    .orbiter-label.seattle { animation: orbit 8s linear infinite; --orbit-r: 21%; }
+    .orbiter-label.question { animation: orbit 14s linear infinite; --orbit-r: 11%; }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+    }
 
     .lake-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-style: italic;
       color: var(--accent2);
       z-index: 1;
       text-align: center;
       line-height: 1.3;
+      position: relative;
+      z-index: 2;
+    }
+    .lake-title span {
+      display: block;
+      font-size: 0.55em;
+      font-family: 'JetBrains Mono', monospace;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(76,168,201,0.5);
+      margin-top: 4px;
     }
 
     .location-text p {
@@ -581,13 +619,6 @@
     <h2 class="section-title">A portfolio of<br><em>meaningful work.</em></h2>
     <div class="ventures-grid">
       <div class="venture-card reveal">
-        <span class="icon">📬</span>
-        <h3>The Finger Lakes Effect</h3>
-        <p>A weekly newsletter highlighting the best of the Finger Lakes region — events, trails, food, and local finds. Written in a friendly, personal style with curated recommendations for locals and visitors alike.</p>
-        <span class="tag">Newsletter</span>
-        <span class="url">thefingerlakeseffect.com</span>
-      </div>
-      <div class="venture-card reveal">
         <span class="icon">⚡</span>
         <h3>Productivity Academy</h3>
         <p>Practical tools, ideas, and systems for improving personal productivity — from journaling practices to hybrid analog/digital workflows and AI-assisted task management.</p>
@@ -616,13 +647,16 @@
   <div class="container">
     <div class="location-content">
       <div class="finger-lakes-visual reveal">
-        <div class="lake-ring"></div>
-        <div class="lake-ring"></div>
-        <div class="lake-ring"></div>
-        <div class="lake-label">Cayuga</div>
-        <div class="lake-label">Seneca</div>
-        <div class="lake-label">Ithaca</div>
-        <div class="lake-title">Finger Lakes<br>Region</div>
+        <div class="orbit-track"></div>
+        <div class="orbit-track"></div>
+        <div class="orbit-track"></div>
+        <div class="orbiter ithaca"></div>
+        <div class="orbiter seattle"></div>
+        <div class="orbiter question"></div>
+        <div class="orbiter-label ithaca" style="animation-delay: -1s;">Ithaca</div>
+        <div class="orbiter-label seattle" style="animation-delay: -3s;">Seattle</div>
+        <div class="orbiter-label question" style="animation-delay: -7s;">?</div>
+        <div class="lake-title">Finger Lakes<span>Region</span></div>
       </div>
       <div class="location-text reveal">
         <div class="section-label">Home Base</div>
@@ -643,24 +677,24 @@
     <div class="section-label">What I'm Into</div>
     <h2 class="section-title">Always reading,<br><em>always learning.</em></h2>
     <div class="book-cards">
-      <div class="book-card reveal">
+      <a href="https://www.youtube.com/@AdamsBookInsights" class="book-card reveal" target="_blank" rel="noopener">
         <div class="book-icon">📕</div>
         <h4>On the Edge</h4>
         <div class="author">Nate Silver</div>
         <p>How professional risk-takers — gamblers, investors, military planners — think about an uncertain world. Part memoir, part investigation, part manual for navigating complexity.</p>
-      </div>
-      <div class="book-card reveal">
+      </a>
+      <a href="https://www.youtube.com/@AdamsBookInsights" class="book-card reveal" target="_blank" rel="noopener">
         <div class="book-icon">📗</div>
         <h4>Extreme Ownership</h4>
         <div class="author">Jocko Willink & Leif Babin</div>
         <p>Leadership distilled to its most actionable core: your team's failures are your responsibility. Painfully direct, immediately useful.</p>
-      </div>
-      <div class="book-card reveal">
+      </a>
+      <a href="https://www.youtube.com/@AdamsBookInsights" class="book-card reveal" target="_blank" rel="noopener">
         <div class="book-icon">📙</div>
         <h4>When the Moon Hits Your Eye</h4>
         <div class="author">John Scalzi</div>
         <p>Fun, accessible sci-fi with heavy humor and real human moments. The premise: the moon becomes cheese. Instantly. No explanation. It works surprisingly well.</p>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -676,9 +710,6 @@
       <a href="https://oasisoptimization.com" class="cta-btn secondary" target="_blank">🏝️ Oasis Optimization</a>
       <a href="https://productivity.academy" class="cta-btn secondary" target="_blank">⚡ Productivity Academy</a>
     </div>
-    <div style="margin-top: 20px;" class="reveal">
-      <a href="https://substack.com/@adammoody" class="cta-btn secondary" target="_blank">📬 Substack</a>
-    </div>
   </div>
 </section>
 
@@ -689,7 +720,6 @@
       <a href="https://adammoody.org" target="_blank">adammoody.org</a>
       <a href="https://productivity.academy" target="_blank">Productivity Academy</a>
       <a href="https://oasisoptimization.com" target="_blank">Oasis Optimization</a>
-      <a href="https://substack.com/@adammoody" target="_blank">Substack</a>
     </div>
     <p>One life, many paths. © 2026</p>
   </div>
