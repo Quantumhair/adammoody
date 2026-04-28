@@ -326,15 +326,16 @@
       justify-content: center;
     }
 
-    .orbit-track {
+    .lake-ring {
       position: absolute;
       border-radius: 50%;
       border: 1px solid rgba(76,168,201,0.15);
     }
-    .orbit-track:nth-child(1) { width: 85%; height: 65%; }
-    .orbit-track:nth-child(2) { width: 60%; height: 48%; border-color: rgba(76,168,201,0.25); }
-    .orbit-track:nth-child(3) { width: 32%; height: 30%; border-color: rgba(76,168,201,0.4); }
+    .lake-ring:nth-child(1) { width: 80%; height: 60%; top: 20%; left: 10%; }
+    .lake-ring:nth-child(2) { width: 55%; height: 45%; top: 27%; left: 22.5%; border-color: rgba(76,168,201,0.25); }
+    .lake-ring:nth-child(3) { width: 30%; height: 28%; top: 36%; left: 35%; border-color: rgba(76,168,201,0.4); }
 
+    /* Orbiting dots — use calc() to get meaningful pixel radius from % units */
     .orbiter {
       position: absolute;
       top: 50%;
@@ -343,35 +344,49 @@
       height: 8px;
       margin: -4px;
       border-radius: 50%;
-      background: rgba(76,168,201,0.7);
-      box-shadow: 0 0 6px rgba(76,168,201,0.5);
+      background: rgba(76,168,201,0.8);
+      box-shadow: 0 0 8px rgba(76,168,201,0.6);
+      transform-origin: center center;
     }
-    .orbiter.ithaca { width: 10px; height: 10px; margin: -5px; background: rgba(100,220,180,0.9); box-shadow: 0 0 10px rgba(100,220,180,0.7); animation: orbit 4s linear infinite; }
-    .orbiter.seattle { animation: orbit 8s linear infinite; }
-    .orbiter.question { animation: orbit 14s linear infinite; }
+    .orbiter.ithaca {
+      width: 10px;
+      height: 10px;
+      margin: -5px;
+      background: rgba(100,220,180,0.95);
+      box-shadow: 0 0 12px rgba(100,220,180,0.8);
+      animation: orbit-ithaca 4s linear infinite;
+    }
+    .orbiter.seattle { animation: orbit-seattle 8s linear infinite; }
+    .orbiter.question { animation: orbit-question 14s linear infinite; }
 
-    @keyframes orbit {
-      from { transform: rotate(0deg) translateX(var(--orbit-r, 30%)) rotate(0deg); }
-      to   { transform: rotate(360deg) translateX(var(--orbit-r, 30%)) rotate(-360deg); }
+    /* Orbit radius = 50% of container width × ring's width%/2 */
+    @keyframes orbit-ithaca {
+      from { transform: rotate(0deg) translateX(calc(50% * 0.40)) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(calc(50% * 0.40)) rotate(-360deg); }
+    }
+    @keyframes orbit-seattle {
+      from { transform: rotate(0deg) translateX(calc(50% * 0.275)) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(calc(50% * 0.275)) rotate(-360deg); }
+    }
+    @keyframes orbit-question {
+      from { transform: rotate(0deg) translateX(calc(50% * 0.15)) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(calc(50% * 0.15)) rotate(-360deg); }
     }
 
-    .orbiter-label {
+    /* Fixed labels at the orbital paths — static, positioned around the ellipses */
+    .lake-label {
       position: absolute;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: rgba(76,168,201,0.8);
       white-space: nowrap;
     }
-    .orbiter-label.ithaca  { animation: orbit 4s linear infinite; --orbit-r: 30%; }
-    .orbiter-label.seattle { animation: orbit 8s linear infinite; --orbit-r: 21%; }
-    .orbiter-label.question { animation: orbit 14s linear infinite; --orbit-r: 11%; }
-
-    @keyframes orbit {
-      from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
-      to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
-    }
+    /* Approximate label positions around the elliptical paths */
+    .lake-label.ithaca  { top: 43%; left: 8%;  }
+    .lake-label.seattle { top: 58%; right: 8%; }
+    .lake-label.question { bottom: 22%; left: 28%; }
 
     .lake-title {
       font-family: 'Playfair Display', serif;
@@ -647,15 +662,15 @@
   <div class="container">
     <div class="location-content">
       <div class="finger-lakes-visual reveal">
-        <div class="orbit-track"></div>
-        <div class="orbit-track"></div>
-        <div class="orbit-track"></div>
+        <div class="lake-ring"></div>
+        <div class="lake-ring"></div>
+        <div class="lake-ring"></div>
         <div class="orbiter ithaca"></div>
         <div class="orbiter seattle"></div>
         <div class="orbiter question"></div>
-        <div class="orbiter-label ithaca" style="animation-delay: -1s;">Ithaca</div>
-        <div class="orbiter-label seattle" style="animation-delay: -3s;">Seattle</div>
-        <div class="orbiter-label question" style="animation-delay: -7s;">?</div>
+        <div class="lake-label ithaca">Ithaca</div>
+        <div class="lake-label seattle">Seattle</div>
+        <div class="lake-label question">?</div>
         <div class="lake-title">Finger Lakes<span>Region</span></div>
       </div>
       <div class="location-text reveal">
